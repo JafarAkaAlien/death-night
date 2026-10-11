@@ -32,9 +32,9 @@ body{
     }
 }
 .bullet{
-    width: 10px;
+    width: 12px;
     height: 5px;
-    background-color: red;
+    background-color: darkgreen;
     border-radius: 0 50% 50% 0;
     border: solid 1px white;
     position: absolute;
@@ -54,4 +54,70 @@ body{
     background-position: center;
     background-size: cover;
     position: absolute;
+}
+
+.zombieDead-1{
+    width: 120px;
+    height: 120px;
+    background-image: url(./img/zombieDead-1.png);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    transform: translateX(-30px);
+}
+.zombieDead-2{
+    width: 120px;
+    height: 120px;
+    background-image: url(./img/zombieDead-2.png);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    transform: translateX(-30px);
+}
+.zombieDead-3{
+    width: 120px;
+    height: 120px;
+    background-image: url(./img/zombieDead-3.png);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    transform: translateX(-30px);
+}
+.zombieDead-4{
+    width: 120px;
+    height: 120px;
+    background-image: url(./img/zombieDead-4.png);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    transform: translateX(-30px);
+}
+.zombieDead-5{
+    width: 120px;
+    height: 120px;
+    background-image: url(./img/zombieDead-5.png);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    transform: translateX(-30px);
+}
+
+
+
+.zombieHealthBar{
+    width: 100%;
+    height: 10px;
+    background-color: black;
+    border-radius: 10px;
+    border: solid 1px black;
+    position: absolute;
+    top: -20px;
+    left: -15px;
+    overflow: hidden;
+}
+
+.health{
+    width: 100%;
+    height: 100%;
+    background-color: red;
 }

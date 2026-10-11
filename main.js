@@ -38,6 +38,8 @@ main.addEventListener("click", () => {
     let bullet = document.createElement("div")
     bullet.classList.add("bullet")
 
+    main.append(bullet)
+
     let bulletX = playerX
     let bulletY = playerY
 
@@ -69,25 +71,66 @@ main.addEventListener("click", () => {
             let zombieX = Number(zombie.dataset.x)
             let zombieY = Number(zombie.dataset.y)
             if(bulletX>=zombieX && bulletX<=zombieX+70&&
-                bulletY>=zombieY && bulletY<=zombieY+120){
+                bulletY>=zombieY && bulletY<=zombieY+120&&
+                zombie.dataset.dead == "false"){
                     bullet.remove()
                     clearInterval(shot)
-                    zombie.remove()
+
+                    let zombieHealth = Number(zombie.dataset.health)
+                    zombieHealth--
+                    let health = zombie.querySelector(".health")
+                    health.style.width = 25*zombieHealth+"%"
+                    zombie.dataset.health = zombieHealth
+                    if(zombieHealth<=0){
+                        zombie.dataset.dead = "true"
+
+                        //!oldukden sonra can barini silir
+                        zombie.querySelector(".zombieHealthBar").remove()
+
+                        //! zombinin olum animasiyalari
+                        zombie.classList.remove("zombie1","zombie2")
+                        zombie.classList.add("zombieDead-1")
+                        setTimeout(()=>{
+                            zombie.classList.remove("zombieDead-1")
+                            zombie.classList.add("zombieDead-2")
+                        },100)
+                        setTimeout(()=>{
+                            zombie.classList.remove("zombieDead-2")
+                            zombie.classList.add("zombieDead-3")
+                        },500)
+                        setTimeout(()=>{
+                            zombie.classList.remove("zombieDead-3")
+                            zombie.classList.add("zombieDead-4")
+                        },800)
+                        setTimeout(()=>{
+                            zombie.classList.remove("zombieDead-4")
+                            zombie.classList.add("zombieDead-5")
+                        },1000)
+                        setTimeout(()=>{
+                            zombie.remove()
+                        },2000)
+                    }
                 }
         })
     }, 10)
-
-    main.append(bullet)
 })
 
 //!random zombie yaratmaq
 function createZombie(){
     let zombie = document.createElement("div")
+    let zombieHealthBar = document.createElement("div")
+    let health = document.createElement("div")
 
     zombie.classList.add("zombie1")
     zombie.classList.add("zombie")
+
+    zombieHealthBar.classList.add("zombieHealthBar")
+
+    health.classList.add("health")
     
     main.append(zombie)
+    zombie.append(zombieHealthBar)
+    zombieHealthBar.append(health)
     
     let zombieX = 1400
     let zombieY = Math.floor((Math.random()*80)+180)
@@ -95,27 +138,49 @@ function createZombie(){
     zombie.dataset.x = zombieX
     zombie.dataset.y = zombieY
 
+    //! zombinin cani
+    zombie.dataset.health = 4
+    zombie.dataset.dead = "false"
+
     zombie.style.left = zombieX + "px"
     zombie.style.top = zombieY + "px"
 
+    //!zombinin hereketi
     let zombieMove = setInterval(()=>{
-        zombieX--
+
+        if(zombie.dataset.dead == "true"){
+            clearInterval(zombieMove)
+            return
+        }
+
+        zombieX --
 
         zombie.dataset.x = zombieX
 
         zombie.style.left = zombieX + "px"
 
+        //! bura catanda zombi silinir
         if(zombieX<=300){
             zombie.remove()
             clearInterval(zombieMove)
             clearInterval(zombieWalk)
         }
     },30)
+
+    //! zombinin yerime animasiyasi
     let zombieWalk = setInterval(()=>{
+
+        if(zombie.dataset.dead == "true"){
+            clearInterval(zombieWalk)
+            return
+        }
+
         zombie.classList.toggle("zombie2")
+        zombie.classList.toggle("zombie1")
     },700)
 }
 
+//! zombiler nece saniyeden bir yaransin
 setInterval(()=>{
     createZombie()
-},2000)
+},5000)
