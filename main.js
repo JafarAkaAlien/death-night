@@ -1,7 +1,16 @@
+//? Html Objects
+
 let main = document.querySelector(".main")
 let mainPlayer = document.querySelector(".main-player")
-const shootSound = document.querySelector(".shot-sound")
 let mainPlayerHandAndWeapon = document.querySelector(".main-player-hand-and-weapon")
+let scoreDiv = main.querySelector(".score")
+//? Game Objects
+let score = 0
+
+//? Sound Effects
+
+const shootSound = document.querySelector(".shot-sound")
+const goldSound  = document.querySelector(".gold-sound")
 
 let mouseX;
 let mouseY;
@@ -84,7 +93,15 @@ main.addEventListener("click", () => {
                     zombie.dataset.health = zombieHealth
                     if(zombieHealth<=0){
                         zombie.dataset.dead = "true"
-
+                        let gold = document.createElement("div")
+                        gold.classList.add("gold")
+                        zombie.append(gold)
+                        
+                        //!oldukden sonra coin atir ve pul verir
+                        goldSound.currentTime=0
+                        goldSound.play()
+                        score+=5;
+                        scoreDiv.innerHTML=`<img src="assets/img/5qepik.png" alt="">${score}`
                         //!oldukden sonra can barini silir
                         zombie.querySelector(".zombieHealthBar").remove()
 
@@ -106,6 +123,7 @@ main.addEventListener("click", () => {
                         setTimeout(()=>{
                             zombie.classList.remove("zombieDead-4")
                             zombie.classList.add("zombieDead-5")
+                            zombie.removeChild(gold)
                         },1000)
                         setTimeout(()=>{
                             zombie.remove()
