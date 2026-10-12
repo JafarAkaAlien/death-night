@@ -20,15 +20,18 @@ body{
     position: relative;
     border: solid 5px black;
     .main-player{
-        background-image: url(./img/mainPlayer.png);
         background-position: center;
         background-size: cover;
         position: absolute;
         z-index: 1;
         bottom: 60px;
-        left: 0;
         width: 100px;
         height: 100px;
+        img{
+            position: absolute;
+            width: 100px;
+            transform-origin: 32% 60%;
+        }
     }
 }
 .bullet{

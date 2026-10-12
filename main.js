@@ -1,6 +1,7 @@
 let main = document.querySelector(".main")
 let mainPlayer = document.querySelector(".main-player")
 const shootSound = document.querySelector(".shot-sound")
+let mainPlayerHandAndWeapon = document.querySelector(".main-player-hand-and-weapon")
 
 let mouseX;
 let mouseY;
@@ -26,7 +27,7 @@ main.addEventListener("mousemove", (event) => {
 
     angle = Math.atan2(minusY, minusX) * 180 / Math.PI
 
-    mainPlayer.style.transform = `rotate(${angle}deg)`
+    mainPlayerHandAndWeapon.style.transform = `rotate(${angle}deg)`
 })
 
 //!ates
